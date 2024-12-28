@@ -1,0 +1,12 @@
+*{
+  margin: 0;
+}
+
+body{
+  background-image: url("icon.png");
+  background-color: #cccccc;
+  height: 700px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}

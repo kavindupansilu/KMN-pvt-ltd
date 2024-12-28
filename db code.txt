@@ -1,0 +1,632 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 26, 2024 at 07:11 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `kmn (pvt) ltd`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `Id` int(11) NOT NULL,
+  `User_Id` varchar(14) NOT NULL,
+  `Password` varchar(8) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Phone` bigint(10) NOT NULL,
+  `Email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `booking`
+--
+
+CREATE TABLE `booking` (
+  `Booking_Id` int(11) NOT NULL,
+  `booking_Date` date NOT NULL,
+  `time` time NOT NULL,
+  `Type_of_Service` varchar(255) NOT NULL,
+  `Vehicle_Id` varchar(7) NOT NULL,
+  `phone` int(10) NOT NULL,
+  `Referral` varchar(20) DEFAULT NULL,
+  `Cust_Id` varchar(13) NOT NULL,
+  `Manager_Id` varchar(14) DEFAULT NULL,
+  `User_Id` varchar(14) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `Cust_Count` int(11) NOT NULL,
+  `Cust_Id` varchar(13) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `referral` varchar(50) DEFAULT NULL,
+  `Manager_Id` varchar(14) DEFAULT NULL,
+  `User_Id` varchar(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `SID` int(11) NOT NULL,
+  `Payment_Id` int(11) NOT NULL,
+  `Payment_Date` date NOT NULL,
+  `Cust_Id` varchar(14) NOT NULL,
+  `Vehicle_Id` varchar(9) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Address` varchar(100) NOT NULL,
+  `Total_Cost` decimal(10,2) NOT NULL,
+  `Paid` decimal(10,0) NOT NULL,
+  `Balance` decimal(10,0) NOT NULL,
+  `User_Id` varchar(14) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_products`
+--
+
+CREATE TABLE `invoice_products` (
+  `ID` int(11) NOT NULL,
+  `SID` int(11) NOT NULL,
+  `Item_Name` varchar(100) DEFAULT NULL,
+  `PRICE` double(10,2) DEFAULT NULL,
+  `QTY` int(11) DEFAULT NULL,
+  `Item_Cost` double(10,2) DEFAULT NULL,
+  `Service_Id` int(11) NOT NULL,
+  `Type_of_Service` varchar(20) NOT NULL,
+  `Service_Charge` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoice_products`
+--
+
+INSERT INTO `invoice_products` (`ID`, `SID`, `Item_Name`, `PRICE`, `QTY`, `Item_Cost`, `Service_Id`, `Type_of_Service`, `Service_Charge`) VALUES
+(9, 17, '16', 6000.00, 2, 12000.00, 48, 'Tire Rotation', 1000),
+(10, 17, 'None', 0.00, 0, 0.00, 48, 'Paint and Bodywork', 1000),
+(11, 18, '17', 2500.00, 1, 2500.00, 84, 'Oil Change', 1000),
+(12, 19, '18', 500.00, 2, 1000.00, 48, 'Heating System Servi', 5000),
+(13, 19, 'None', 0.00, 0, 0.00, 56, 'Brake System Repair', 6000),
+(14, 20, '18', 52.00, 5, 260.00, 45, 'Suspension and Steer', 522),
+(15, 21, '18', 56.00, 5, 280.00, 52, 'Computerized Diagnos', 66),
+(16, 22, '18', 600.00, 2, 1200.00, 25, 'Suspension and Steer', 21),
+(17, 23, '18', 65.00, 2, 130.00, 52, 'Electrical System Re', 600),
+(18, 25, '18', 500.00, 2, 1000.00, 5, 'Transmission Repair', 522),
+(19, 26, '18', 500.00, 2, 1000.00, 50, 'Suspension and Steer', 100),
+(20, 27, '18', 500.00, 2, 1000.00, 52, 'Tire Rotation', 1000),
+(21, 27, 'None', 0.00, 0, 0.00, 0, 'Fluid Checks and Rep', 0),
+(22, 28, '18', 600.00, 2, 1200.00, 56, 'Tire Rotation', 2000),
+(23, 29, '18', 600.00, 2, 1200.00, 56, 'Tire Rotation', 2000),
+(24, 30, '18', 600.00, 2, 1200.00, 56, 'Tire Rotation', 2000),
+(25, 31, '18', 50.00, 2, 100.00, 5, 'Fluid Checks and Rep', 50),
+(26, 32, '18', 600.00, 2, 1200.00, 56, 'Tire Rotation', 2000),
+(27, 33, '18', 600.00, 2, 1200.00, 56, 'Tire Rotation', 2000),
+(28, 34, '18', 600.00, 2, 1200.00, 56, 'Brake System Repair', 500),
+(29, 35, '18', 500.00, 2, 1000.00, 5, 'Performance Upgrades', 500),
+(30, 36, '19', 500.00, 2, 1000.00, 5, 'Electrical System Re', 5000),
+(31, 37, '18', 220.00, 5, 1100.00, 5, 'Brake System Repair', 520),
+(32, 38, '18', 600.00, 2, 1200.00, 58, 'Tire Rotation', 1000),
+(33, 42, '18', 600.00, 1, 600.00, 59, 'Oil Change', 500),
+(34, 43, '30', 544.00, 4, 2176.00, 0, 'Emission System Serv', 4),
+(35, 44, '29', 300.00, 5, 1500.00, 4, 'Transmission Repair', 600);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item`
+--
+
+CREATE TABLE `item` (
+  `Item_Id` int(11) NOT NULL,
+  `Item_Name` varchar(20) NOT NULL,
+  `Brand` varchar(20) NOT NULL,
+  `Quantity` int(11) NOT NULL,
+  `InStock` int(11) NOT NULL,
+  `Item_Cost` decimal(10,0) NOT NULL,
+  `Mechanic_Id` varchar(14) DEFAULT NULL,
+  `User_Id` varchar(14) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_supplier`
+--
+
+CREATE TABLE `item_supplier` (
+  `Id` int(11) NOT NULL,
+  `Item_Id` int(11) NOT NULL,
+  `Supplier_Id` int(11) NOT NULL,
+  `User_Id` varchar(14) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manager`
+--
+
+CREATE TABLE `manager` (
+  `Id` int(11) NOT NULL,
+  `User_Id` varchar(14) NOT NULL,
+  `Password` varchar(8) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Phone` bigint(10) NOT NULL,
+  `Email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mechanic`
+--
+
+CREATE TABLE `mechanic` (
+  `Id` int(11) NOT NULL,
+  `User_Id` varchar(14) NOT NULL,
+  `Password` varchar(8) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Phone` bigint(10) NOT NULL,
+  `Email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `report`
+--
+
+CREATE TABLE `report` (
+  `Report_Id` int(11) NOT NULL,
+  `Report_Type` varchar(20) NOT NULL,
+  `Content` varchar(20) NOT NULL,
+  `Date_Generated` date NOT NULL,
+  `Service_Revenue` decimal(10,2) NOT NULL,
+  `Parts_Sales` varchar(255) NOT NULL,
+  `InStock` varchar(255) NOT NULL,
+  `Manager_Id` varchar(14) NOT NULL,
+  `User_Id` varchar(14) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
+--
+
+CREATE TABLE `sales` (
+  `Sales_Id` int(11) NOT NULL,
+  `Sales_Date` date NOT NULL,
+  `Parts_Sales` varchar(255) NOT NULL,
+  `Service_Revenue` decimal(10,0) NOT NULL,
+  `User_Id` varchar(14) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service`
+--
+
+CREATE TABLE `service` (
+  `Service_Id` int(11) NOT NULL,
+  `Service_Date` date NOT NULL,
+  `Type_of_Service` varchar(255) NOT NULL,
+  `S_Time` time NOT NULL,
+  `E_Time` time NOT NULL,
+  `Parts_Used` varchar(255) NOT NULL,
+  `Item_Cost` decimal(10,0) NOT NULL,
+  `Service_Charge` decimal(10,0) NOT NULL,
+  `Total_Cost` decimal(10,0) NOT NULL,
+  `Booking_Id` int(11) NOT NULL,
+  `Vehicle_Id` varchar(7) NOT NULL,
+  `Mechanic_Id` varchar(14) NOT NULL,
+  `User_Id` varchar(14) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_type`
+--
+
+CREATE TABLE `service_type` (
+  `T_Service_Id` int(11) NOT NULL,
+  `Type_of_Service` varchar(255) NOT NULL,
+  `Service_Charge` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `service_type`
+--
+
+INSERT INTO `service_type` (`T_Service_Id`, `Type_of_Service`, `Service_Charge`) VALUES
+(1, 'Oil Change', 1000),
+(3, 'Tire Rotation', 2000),
+(4, 'Fluid Checks and Replacements', 3000),
+(5, 'Air Filter Replacement', 4000),
+(6, 'Cabin Air Filter Replacement', 0),
+(7, 'Engine Diagnostics', 0),
+(8, 'Computerized Diagnostics', 0),
+(9, 'Brake System Repair', 0),
+(10, 'Suspension and Steering Repair', 0),
+(11, 'Engine Repair', 0),
+(12, 'Transmission Repair', 0),
+(13, 'Electrical System Repair', 0),
+(14, 'Wheel Alignment', 0),
+(15, 'Air Conditioning Service', 0),
+(16, 'Heating System Service', 0),
+(17, 'Emission System Service', 0),
+(18, 'Performance Upgrades', 0),
+(19, 'Interior and Exterior Detailing', 2000),
+(20, 'Paint and Bodywork', 2000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `Supplier_Id` int(11) NOT NULL,
+  `Supplier_Name` varchar(255) NOT NULL,
+  `Brand` varchar(50) NOT NULL,
+  `Contact` int(11) NOT NULL,
+  `Manager_Id` varchar(14) DEFAULT NULL,
+  `User_Id` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicle`
+--
+
+CREATE TABLE `vehicle` (
+  `Vehicle_Id` varchar(7) NOT NULL,
+  `Type` varchar(10) NOT NULL,
+  `Color` varchar(10) NOT NULL,
+  `Cust_Id` varchar(13) NOT NULL,
+  `User_Id` varchar(14) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+
+--
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`User_Id`),
+  ADD UNIQUE KEY `Password` (`Password`,`Phone`,`Email`),
+  ADD KEY `Id` (`Id`);
+
+--
+-- Indexes for table `booking`
+--
+ALTER TABLE `booking`
+  ADD PRIMARY KEY (`Booking_Id`),
+  ADD KEY `Cust_Id` (`Cust_Id`),
+  ADD KEY `User_Id` (`User_Id`);
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`Cust_Id`),
+  ADD UNIQUE KEY `phone` (`phone`),
+  ADD KEY `Cust_Count` (`Cust_Count`),
+  ADD KEY `User_Id` (`User_Id`),
+  ADD KEY `customer_ibfk_2` (`Manager_Id`);
+
+--
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`SID`),
+  ADD KEY `FKC` (`Cust_Id`);
+
+--
+-- Indexes for table `invoice_products`
+--
+ALTER TABLE `invoice_products`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `item`
+--
+ALTER TABLE `item`
+  ADD PRIMARY KEY (`Item_Id`),
+  ADD KEY `Item_uid_FK1` (`Mechanic_Id`),
+  ADD KEY `Item_uid_FK` (`User_Id`);
+
+--
+-- Indexes for table `item_supplier`
+--
+ALTER TABLE `item_supplier`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Item_Id` (`Item_Id`),
+  ADD KEY `Supplier_Id` (`Supplier_Id`),
+  ADD KEY `User_Id` (`User_Id`);
+
+--
+-- Indexes for table `manager`
+--
+ALTER TABLE `manager`
+  ADD PRIMARY KEY (`User_Id`),
+  ADD KEY `Id` (`Id`);
+
+--
+-- Indexes for table `mechanic`
+--
+ALTER TABLE `mechanic`
+  ADD PRIMARY KEY (`User_Id`),
+  ADD UNIQUE KEY `Password` (`Password`,`Phone`,`Email`),
+  ADD KEY `User_Count` (`Id`),
+  ADD KEY `Id` (`Id`);
+
+--
+-- Indexes for table `report`
+--
+ALTER TABLE `report`
+  ADD PRIMARY KEY (`Report_Id`),
+  ADD KEY `Manager_Id` (`Manager_Id`),
+  ADD KEY `User_Id` (`User_Id`);
+
+--
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`Sales_Id`),
+  ADD KEY `FK8` (`User_Id`);
+
+--
+-- Indexes for table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`Service_Id`),
+  ADD KEY `FK` (`Mechanic_Id`),
+  ADD KEY `FK2` (`User_Id`);
+
+--
+-- Indexes for table `service_type`
+--
+ALTER TABLE `service_type`
+  ADD PRIMARY KEY (`T_Service_Id`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`Supplier_Id`),
+  ADD UNIQUE KEY `Contact` (`Contact`),
+  ADD KEY `Manager_Id` (`Manager_Id`),
+  ADD KEY `User_Id` (`User_Id`);
+
+--
+-- Indexes for table `vehicle`
+--
+ALTER TABLE `vehicle`
+  ADD PRIMARY KEY (`Vehicle_Id`),
+  ADD KEY `Vehicle_cid_FK` (`Cust_Id`),
+  ADD KEY `Vehicle_uid_FK` (`User_Id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT for table `booking`
+--
+ALTER TABLE `booking`
+  MODIFY `Booking_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `Cust_Count` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `SID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `invoice_products`
+--
+ALTER TABLE `invoice_products`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `item`
+--
+ALTER TABLE `item`
+  MODIFY `Item_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `item_supplier`
+--
+ALTER TABLE `item_supplier`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `manager`
+--
+ALTER TABLE `manager`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `mechanic`
+--
+ALTER TABLE `mechanic`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `report`
+--
+ALTER TABLE `report`
+  MODIFY `Report_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `Sales_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `service`
+--
+ALTER TABLE `service`
+  MODIFY `Service_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+
+--
+-- AUTO_INCREMENT for table `service_type`
+--
+ALTER TABLE `service_type`
+  MODIFY `T_Service_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `Supplier_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `booking`
+--
+ALTER TABLE `booking`
+  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`Cust_Id`) REFERENCES `customer` (`Cust_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `customer`
+--
+ALTER TABLE `customer`
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_ibfk_2` FOREIGN KEY (`Manager_Id`) REFERENCES `manager` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD CONSTRAINT `FKC` FOREIGN KEY (`Cust_Id`) REFERENCES `customer` (`Cust_Id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `item`
+--
+ALTER TABLE `item`
+  ADD CONSTRAINT `Item_uid_FK` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Item_uid_FK1` FOREIGN KEY (`Mechanic_Id`) REFERENCES `mechanic` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `item_supplier`
+--
+ALTER TABLE `item_supplier`
+  ADD CONSTRAINT `item_supplier_ibfk_1` FOREIGN KEY (`Item_Id`) REFERENCES `item` (`Item_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `item_supplier_ibfk_2` FOREIGN KEY (`Supplier_Id`) REFERENCES `supplier` (`Supplier_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `item_supplier_ibfk_3` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `report`
+--
+ALTER TABLE `report`
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`Manager_Id`) REFERENCES `manager` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `report_ibfk_2` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sales`
+--
+ALTER TABLE `sales`
+  ADD CONSTRAINT `FK8` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `service`
+--
+ALTER TABLE `service`
+  ADD CONSTRAINT `FK` FOREIGN KEY (`Mechanic_Id`) REFERENCES `mechanic` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK2` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD CONSTRAINT `supplier_ibfk_1` FOREIGN KEY (`Manager_Id`) REFERENCES `manager` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `supplier_ibfk_2` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `vehicle`
+--
+ALTER TABLE `vehicle`
+  ADD CONSTRAINT `Vehicle_cid_FK` FOREIGN KEY (`Cust_Id`) REFERENCES `customer` (`Cust_Id`),
+  ADD CONSTRAINT `Vehicle_uid_FK` FOREIGN KEY (`User_Id`) REFERENCES `admin` (`User_Id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
